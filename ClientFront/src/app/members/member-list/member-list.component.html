@@ -1,0 +1,54 @@
+<div class="text-center mt-3">
+    <h2>Total Users - {{pagination?.totalItems}} found</h2>
+</div>
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">Display Name</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Last Active Date</th>
+                <th scope="col" *ngIf="canEdit">Edit</th>
+                <th scope="col" *ngIf="canDelete">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let member of members">
+                <td>{{member.userName}}</td>
+                <td>{{member.displayName}}</td>
+                <td>{{member.firstName}}</td>
+                <td>{{member.lastName}}</td>
+                <td>{{member.gender}}</td>
+                <td>{{member.created | date}}</td>
+                <td>{{member.lastActive | date}}</td>
+                <td *ngIf="canEdit || member.userName == user.userName ">
+                    <button class="btn btn-primary btn-lg me-2" type="button" (click)="openUserEditModal(member)">Edit</button>                    
+                </td>
+                <td *ngIf="canDelete && member.userName != 'admin'">
+                    <button class="btn btn-danger btn-lg me-2" (click)="deleteUser(member.id)">Delete</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="pagination">
+    <pagination 
+        [boundaryLinks]="true" 
+        [totalItems]="pagination.totalItems"
+        [itemsPerPage]="pagination.itemsPerPage"
+        [maxSize]="10"
+        [(ngModel)]="pagination.currentPage"
+        (pageChanged)="pageChanged($event)"
+        previousText="&lsaquo;" 
+        nextText="&rsaquo;" 
+        firstText="&laquo;" 
+        lastText="&raquo;">
+    </pagination>
+</div>

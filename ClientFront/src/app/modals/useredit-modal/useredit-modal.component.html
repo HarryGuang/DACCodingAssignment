@@ -1,0 +1,37 @@
+<form [formGroup]="userEditForm" (ngSubmit)="userEditForm.valid && updateMember()" autocomplete="off">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Edit User - {{username}}</h4>
+            <input type="hidden" formControlName="username">
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" value="male" formControlName="gender"> Male
+                </label>
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" value="female" formControlName="gender"> Female
+                </label>
+            </div>
+            <label>Display Name</label>
+            <app-text-input 
+                [formControl]="$any(userEditForm.controls['displayName'])"
+                [label]="'Display Name'"
+            ></app-text-input>
+            <label>First Name</label>
+            <app-text-input 
+                [formControl]="$any(userEditForm.controls['firstName'])"
+                [label]="'First Name'"
+            ></app-text-input>
+            <label>Last Name</label>
+            <app-text-input 
+                [formControl]="$any(userEditForm.controls['lastName'])"
+                [label]="'Last Name'"
+            ></app-text-input>  
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary btn-lg me-2">{{closeBtnName}}</button>
+    </div>
+</form>
